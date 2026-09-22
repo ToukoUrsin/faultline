@@ -24,7 +24,7 @@ npm test   # 15 MoonBit tests, release build, real WASM and import-boundary chec
 npm run build
 ```
 
-The development build uses `moon 0.1.20260920 (914d7da 2026-09-20)`, compiler `v0.10.14+7d59c7ec9 (2026-09-18)`. The compiler and core library are installed under an ignored `.toolchain/` directory for this workspace; scripts prefer that local toolchain when present, otherwise `moon` on PATH. `MOON_BIN` can select a different executable. CI checks against the official current toolchain. Since MoonBit evolves quickly, record the compiler version when reproducing a result.
+The development build uses `moon 0.1.20260920 (914d7da 2026-09-20)`, compiler `v0.10.14+7d59c7ec9 (2026-09-18)`. The compiler and core library are installed under an ignored `.toolchain/` directory for this workspace; scripts prefer that local toolchain when present, otherwise `moon` on PATH. `MOON_BIN` can select a different executable. A CI workflow is configured for the official current toolchain; hosted CI has not run successfully. Local checks pass. Since MoonBit evolves quickly, record the compiler version when reproducing a result.
 
 ## Try three experiments
 
@@ -53,3 +53,7 @@ Core limits: 24 nodes, 64 links, 128 packets, 96 hops, 65 sweep points. The brow
 Original work began September 21, 2026 in this repository. Codex assisted design, MoonBit implementation, tests, interface and documentation. The implementation uses standard Dijkstra, FIFO, breadth-first reachability and discrete-event concepts; it is not a port of a specific project. No external images, fonts, paid assets or private/company data are included. MoonBit’s compiler/runtime and core library have their own upstream licenses; our original project is MIT licensed.
 
 This is a prepared project for the MoonBit September event. **No acceptance, submission or prize eligibility is claimed.** The official registration requires identity/banking information and a legal commitment; the overseas route is awaiting clarification. The event’s exact gates and primary sources are documented in [entry research](docs/MOONBIT-ENTRY.md).
+
+## Static publication
+
+`npm run build` compiles WASM and synchronizes the public static artifact into `docs/`. GitHub Pages serves that folder using its native branch-build mode. The documentation Markdown alongside it remains source material; `docs/index.html`, `docs/app.js`, `docs/scenario.js`, `docs/style.css` and `docs/assets/` are generated copies. Edit `web/`, then rebuild. Upstream MoonBit notices are preserved in the shipped artifact.

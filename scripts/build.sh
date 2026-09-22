@@ -10,3 +10,4 @@ fi
 "$moon_command" build --target wasm --release
 mkdir -p web/assets
 cp _build/wasm/release/build/bridge/bridge.wasm web/assets/faultline.wasm
+node scripts/sync-pages.mjs
