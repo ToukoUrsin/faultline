@@ -1,5 +1,7 @@
 # Faultline：让网络故障变得可解释
 
+[观看 2 分 04 秒演示（含中英文字幕）](https://github.com/ToukoUrsin/faultline/releases/tag/demo-2026-09-21)
+
 **断开一条链路，看清之后发生的一切。**
 
 Faultline 是一个以 MoonBit 为核心、编译为 WebAssembly 的确定性分组网络实验室。它将「网络坏了」拆解为可检查的事件：哪个分组正在传输、哪个队列已满、路由在哪里改变、没有该故障时会发生什么。

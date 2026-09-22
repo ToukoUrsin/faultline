@@ -1,5 +1,7 @@
 # Faultline demo video
 
+[Published MP4 and English/Chinese captions](https://github.com/ToukoUrsin/faultline/releases/tag/demo-2026-09-21). This media release is not an event submission.
+
 Final file: `faultline-demo.mp4` (124.5 seconds, 1920×1080, 30 fps; H.264 video, AAC narration). English and Simplified Chinese subtitle tracks are embedded and supplied separately as `faultline-demo.en.srt` and `faultline-demo.zh-CN.srt`.
 
 Narration uses the stock ElevenLabs George voice, with supplied text and forced alignment. No real person's voice is cloned. Visuals are actual CDP captures of the running app. The edit preserves within-scene chronology by capture timestamp, extends initial/final holds for explanation, and accelerates the healthy-reset recording 3.5×. One out-of-order frame arrival was sorted by its actual timestamp. The lower thirds are editorial; application states and outputs are never invented. Raw footage and audio are excluded from Git to keep the repository small. `edit.py`, alignment data, subtitles and `edit-manifest.json` reproduce and audit the edit when the source media is present.

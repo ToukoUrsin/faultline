@@ -4,6 +4,8 @@
 
 Faultline is a deterministic packet-network laboratory implemented in **MoonBit** and compiled to **WebAssembly**. It turns an abstract failure into an inspectable chain of events: which packet was in transit, which queue was full, which route changed, and what would happen with the failure removed.
 
+[Watch the 2:04 demo, with English and Chinese captions](https://github.com/ToukoUrsin/faultline/releases/tag/demo-2026-09-21)
+
 [Live laboratory](https://toukoursin.github.io/faultline/) · [Source repository](https://github.com/ToukoUrsin/faultline) · [中文说明](README.zh-CN.md) · [Model and architecture](docs/MODEL.md) · [One-page proposal](docs/PROPOSAL.md) · [Validation evidence](docs/validation.json)
 
 ![Actual Faultline interface with the running MoonBit engine](docs/faultline-preview.jpg)
