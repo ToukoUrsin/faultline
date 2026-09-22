@@ -4,6 +4,8 @@
 
 Faultline 是一个以 MoonBit 为核心、编译为 WebAssembly 的确定性分组网络实验室。它将「网络坏了」拆解为可检查的事件：哪个分组正在传输、哪个队列已满、路由在哪里改变、没有该故障时会发生什么。
 
+[在线演示](https://toukoursin.github.io/faultline/) · [源码仓库](https://github.com/ToukoUrsin/faultline)
+
 ## 运行与验证
 
 需要 Node.js 22 或更新版本，无 npm 依赖，无账号、密钥或外部服务。

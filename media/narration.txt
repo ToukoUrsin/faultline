@@ -1,0 +1,15 @@
+A network diagram tells you what is connected. It rarely tells you why a particular packet disappeared. Faultline makes that chain of events visible.
+
+This is an original MoonBit engine, compiled to WebAssembly. In this experiment, twelve packets cross a six-node network. A bridge fails at fifty-two milliseconds. Nine packets arrive. Three do not. The healthy-network comparison delivers all twelve.
+
+Select packet three. It enters at sixteen milliseconds, reaches North at thirty-four, and starts crossing the bridge. The link fails exactly when it would arrive. Under this model's explicit rule, failure wins. The packet's entire story is here, with times and a counterfactual outcome.
+
+Now change when the failure happens. These bars are twenty-five fresh MoonBit simulations. They are not an estimated curve. If the bridge is already down before traffic starts, all twelve packets arrive through the alternative route. Earlier failure can mean less loss, because nothing is caught in flight.
+
+Connectivity is only part of the story. Send all twelve packets at once into a queue with room for three. Nine are rejected immediately, even with every link healthy. The event trace distinguishes queue overflow from a broken route.
+
+Faultline also computes minimal failure sets. Apply this two-link cut, and no path remains. Remove either member of the cut, and connectivity returns. These are graph results, separate from the traffic simulation.
+
+Reset to healthy conditions. Export the complete experiment, including topology, parameters and event evidence. Importing recomputes the results in MoonBit instead of trusting a saved answer.
+
+Everything runs locally. No service, account or API key is needed. This is an explicit learning model, not a production-network predictor. The source, tests and assumptions are open, so every result can be inspected, reproduced and challenged.

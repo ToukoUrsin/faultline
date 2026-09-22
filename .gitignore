@@ -5,3 +5,9 @@ target/
 .env*
 node_modules/
 _build/
+media/raw/
+media/.work/
+media/work/
+media/*.mp3
+media/*.mp4
+media/*.png

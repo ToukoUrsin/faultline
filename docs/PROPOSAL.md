@@ -10,4 +10,4 @@
 
 **原创、开源与 AI。** 2026 年 9 月 21 日开始原创实现，未复用其他参赛项目。MIT 许可证，公开前保留真实连续提交。Codex 协助架构、代码、测试、界面和文档；参赛者需理解并负责最终质量。工程采用标准算法思想，没有移植特定第三方实现。后续可扩展故障恢复、不同路由策略、带性质验证的实验集和教学教程。
 
-**交付位置。** 仓库根 README 提供运行与构建命令；`src/engine` 为可复用核心；`docs/MODEL.md` 记录精确语义；`docs/validation.json` 记录发布 WASM 哈希与验证结果。公共仓库/演示 URL 在发布后补充。报名资格、海外支付方式和隐私替代流程等待主办方确认，当前不声称已获接受。
+**交付位置。** 仓库根 README 提供运行与构建命令；`src/engine` 为可复用核心；`docs/MODEL.md` 记录精确语义；`docs/validation.json` 记录发布 WASM 哈希与验证结果。公共仓库：https://github.com/ToukoUrsin/faultline 。在线演示：https://toukoursin.github.io/faultline/ 。报名资格、海外支付方式和隐私替代流程等待主办方确认，当前不声称已获接受。
