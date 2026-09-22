@@ -1,1 +1,0 @@
-{"import":["touko/faultline/engine"],"link":{"wasm":{"exports":["reset","add_link","run","packet_count","packet_value","event_count","event_value","delivered_count","lost_count","max_time"]},"wasm-gc":{"exports":["reset","add_link","run","packet_count","packet_value","event_count","event_value","delivered_count","lost_count","max_time"]}}}

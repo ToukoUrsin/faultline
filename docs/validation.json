@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-09-22T03:06:09.853Z",
+  "engineSHA256": "719300ec17a356d952433d2672bcfe305dd7dd6b4b702d7ccd0f43403c8b5fea",
+  "engineBytes": 19407,
+  "hostImports": [],
+  "wasmChecks": [
+    "exact failure outcome",
+    "healthy comparison",
+    "burst tail-drop",
+    "deterministic repeat",
+    "ABI invalid reads",
+    "rejected invalid inputs clear reports"
+  ],
+  "bridgeFailure": {
+    "delivered": 9,
+    "lost": 3,
+    "duration": 154,
+    "p95": 66
+  },
+  "healthy": {
+    "delivered": 12,
+    "p95": 54
+  }
+}
