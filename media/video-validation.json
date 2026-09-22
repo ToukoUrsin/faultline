@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-09-22T03:32:04.446607+00:00",
+  "file": "faultline-demo.mp4",
+  "bytes": 7522525,
+  "sha256": "2eb08b2ceed12fb259fd51a07261d9d00c339f582fb8890c92e191ef485d0ff9",
+  "durationSeconds": 124.5,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "subtitleTracks": [
+    "eng",
+    "zho"
+  ],
+  "fullDecode": "passed; ffmpeg -v error -i video -f null - returned 0, no errors",
+  "visualQA": [
+    10,
+    33,
+    57,
+    72,
+    86,
+    104,
+    119
+  ],
+  "realCaptureSegments": 122,
+  "syntheticVoice": "ElevenLabs stock George",
+  "claims": "Actual app UI and real WASM results; synthetic network model; no contest acceptance claimed"
+}
