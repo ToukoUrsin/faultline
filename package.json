@@ -1,0 +1,12 @@
+{
+  "name": "faultline-network-lab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "build": "bash scripts/build.sh",
+    "test": "bash scripts/test.sh",
+    "test:wasm": "node scripts/wasm-test.mjs"
+  }
+}

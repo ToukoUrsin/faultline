@@ -10,3 +10,4 @@ fi
 "$moon_command" test --target wasm
 bash scripts/build.sh
 node scripts/wasm-test.mjs
+node scripts/scenario-test.mjs

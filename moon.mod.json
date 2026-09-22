@@ -1,1 +1,0 @@
-{"name":"touko/faultline","version":"0.1.0","source":"src","license":"MIT","keywords":["simulation","network","discrete-event","wasm"],"description":"Deterministic packet-network experiments with inspectable event traces."}

@@ -1,4 +1,5 @@
 // Numeric WASM ABI: no JavaScript implementation of the simulation exists.
+
 ///|
 let nodes : Array[Int] = [6]
 
@@ -16,6 +17,8 @@ pub fn reset(count : Int) -> Int {
   nodes[0] = count
   links.clear()
   reports.clear()
+  sweep_points.clear()
+  cut_sets.clear()
   1
 }
 
@@ -43,6 +46,8 @@ pub fn add_link(
   }
   links.push(edge)
   reports.clear()
+  sweep_points.clear()
+  cut_sets.clear()
   links.length() - 1
 }
 
@@ -55,6 +60,8 @@ pub fn run(
   ttl : Int,
 ) -> Int {
   reports.clear()
+  sweep_points.clear()
+  cut_sets.clear()
   match
     @engine.simulate(nodes[0], links, count, source, target, interval, ttl) {
     Some(report) => {
@@ -156,6 +163,86 @@ pub fn statistic(field : Int) -> Int {
     0 => r.mean_latency
     1 => r.p95_latency
     2 => r.peak_queue
+    _ => -1
+  }
+}
+
+///|
+let sweep_points : Array[@engine.SweepPoint] = []
+
+///|
+let cut_sets : Array[@engine.Cut] = []
+
+///|
+pub fn analyze(
+  count : Int,
+  source : Int,
+  target : Int,
+  interval : Int,
+  ttl : Int,
+  horizon : Int,
+  steps : Int,
+) -> Int {
+  sweep_points.clear()
+  cut_sets.clear()
+  match
+    @engine.failure_sweep(
+      nodes[0],
+      links,
+      count,
+      source,
+      target,
+      interval,
+      ttl,
+      horizon,
+      steps,
+    ) {
+    None => return -1
+    Some(points) =>
+      for point in points {
+        sweep_points.push(point)
+      }
+  }
+  match @engine.minimal_cuts(nodes[0], links, source, target) {
+    None => return -1
+    Some(cuts) =>
+      for cut in cuts {
+        cut_sets.push(cut)
+      }
+  }
+  sweep_points.length()
+}
+
+///|
+pub fn sweep_value(index : Int, field : Int) -> Int {
+  if index < 0 || index >= sweep_points.length() {
+    return -1
+  }
+  let p = sweep_points[index]
+  match field {
+    0 => p.time
+    1 => p.delivered
+    2 => p.lost
+    3 => p.p95_latency
+    4 => p.total_queue_time
+    _ => -1
+  }
+}
+
+///|
+pub fn cut_count() -> Int {
+  cut_sets.length()
+}
+
+///|
+pub fn cut_value(index : Int, field : Int) -> Int {
+  if index < 0 || index >= cut_sets.length() {
+    return -1
+  }
+  let c = cut_sets[index]
+  match field {
+    0 => c.first
+    1 => c.second
     _ => -1
   }
 }

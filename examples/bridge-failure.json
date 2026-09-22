@@ -1,0 +1,100 @@
+{
+  "schema": "faultline/scenario/v1",
+  "nodes": [
+    {
+      "name": "Source",
+      "x": 80,
+      "y": 150
+    },
+    {
+      "name": "North",
+      "x": 280,
+      "y": 65
+    },
+    {
+      "name": "Bridge",
+      "x": 510,
+      "y": 65
+    },
+    {
+      "name": "South",
+      "x": 280,
+      "y": 235
+    },
+    {
+      "name": "Relay",
+      "x": 510,
+      "y": 235
+    },
+    {
+      "name": "Destination",
+      "x": 720,
+      "y": 150
+    }
+  ],
+  "links": [
+    {
+      "from": 0,
+      "to": 1,
+      "propagation": 10,
+      "service": 8,
+      "capacity": 4,
+      "down_at": -1
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "propagation": 10,
+      "service": 8,
+      "capacity": 4,
+      "down_at": 52
+    },
+    {
+      "from": 2,
+      "to": 5,
+      "propagation": 10,
+      "service": 8,
+      "capacity": 4,
+      "down_at": -1
+    },
+    {
+      "from": 0,
+      "to": 3,
+      "propagation": 14,
+      "service": 8,
+      "capacity": 4,
+      "down_at": -1
+    },
+    {
+      "from": 3,
+      "to": 4,
+      "propagation": 14,
+      "service": 8,
+      "capacity": 4,
+      "down_at": -1
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "propagation": 14,
+      "service": 8,
+      "capacity": 4,
+      "down_at": -1
+    },
+    {
+      "from": 1,
+      "to": 4,
+      "propagation": 18,
+      "service": 8,
+      "capacity": 4,
+      "down_at": -1
+    }
+  ],
+  "params": {
+    "count": 12,
+    "source": 0,
+    "target": 5,
+    "interval": 8,
+    "hop_limit": 24
+  }
+}

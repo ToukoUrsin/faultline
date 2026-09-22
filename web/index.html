@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a101b" />
+    <meta
+      name="description"
+      content="An inspectable MoonBit and WebAssembly packet-network lab. Break a link. See every consequence."
+    />
+    <title>Faultline — watch a network fail</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="./" aria-label="Faultline home"
+        ><span class="mark">╱╲</span> faultline<span class="version"
+          >NETWORK LAB / 01</span
+        ></a
+      >
+      <div class="header-right">
+        <span id="engine-status" class="badge"
+          ><i></i> Loading MoonBit engine</span
+        ><button id="export" class="quiet">Export experiment ↗</button
+        ><label class="quiet import-label"
+          >Import<input
+            id="import"
+            type="file"
+            accept="application/json,.json" /></label
+        ><button id="help" class="quiet" aria-controls="method">
+          How it works
+        </button>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <div class="eyebrow">SMALL SYSTEMS. VISIBLE CONSEQUENCES.</div>
+          <h1>
+            Break one link.<br /><span>Understand everything after.</span>
+          </h1>
+          <p>
+            A packet-level network laboratory. Change the conditions, scrub
+            time,<br class="wide" />
+            and follow the exact chain of cause and effect.
+          </p>
+        </div>
+        <div class="intro-aside">
+          <span class="mini-label">THE EXPERIMENT</span
+          ><strong id="experiment-title">A bridge goes dark.</strong>
+          <p id="experiment-copy">
+            Some packets are already on their way.<br />The rest must find
+            another route.
+          </p>
+          <span class="local-note">◈ RUNS LOCALLY · DETERMINISTIC WASM</span>
+        </div>
+      </section>
+      <div id="notice" role="status" aria-live="polite"></div>
+      <section class="workspace">
+        <aside class="controls panel">
+          <div class="section-label">
+            <span>01 / CONDITIONS</span><span class="dot-grid">⠿</span>
+          </div>
+          <h2>Choose the pressure.</h2>
+          <div class="presets" role="group" aria-label="Experiment presets">
+            <button data-preset="failure" class="preset active">
+              <span>01</span>
+              <div>Bridge failure<small>Watch the route adapt</small></div>
+              <b>↗</b></button
+            ><button data-preset="burst" class="preset">
+              <span>02</span>
+              <div>A sudden burst<small>Find the queue limit</small></div>
+              <b>↗</b></button
+            ><button data-preset="partition" class="preset">
+              <span>03</span>
+              <div>An island forms<small>When no route remains</small></div>
+              <b>↗</b></button
+            ><button data-preset="healthy" class="preset">
+              <span>04</span>
+              <div>Clear conditions<small>Establish a baseline</small></div>
+              <b>↗</b>
+            </button>
+          </div>
+          <div class="control">
+            <label for="interval"
+              >Packet spacing <output id="interval-value">8 ms</output></label
+            ><input
+              id="interval"
+              type="range"
+              min="0"
+              max="24"
+              step="1"
+              value="8"
+            />
+            <div class="range-labels">
+              <span>ALL AT ONCE</span><span>MORE ROOM</span>
+            </div>
+          </div>
+          <div class="control">
+            <label for="capacity"
+              >Queue capacity
+              <output id="capacity-value">4 packets</output></label
+            ><input
+              id="capacity"
+              type="range"
+              min="1"
+              max="12"
+              step="1"
+              value="4"
+            />
+            <div class="range-labels">
+              <span>INCLUDING IN SERVICE</span><span>PER DIRECTION</span>
+            </div>
+          </div>
+          <div class="control">
+            <label for="failure-time"
+              >Failure begins <output id="failure-value">52 ms</output></label
+            ><input
+              id="failure-time"
+              type="range"
+              min="0"
+              max="150"
+              step="1"
+              value="52"
+            />
+            <div class="range-labels"><span>EARLY</span><span>LATE</span></div>
+          </div>
+          <div class="control compact">
+            <label for="packet-count">Packets</label
+            ><input
+              id="packet-count"
+              type="number"
+              min="1"
+              max="48"
+              step="1"
+              value="12"
+            />
+          </div>
+          <p class="control-foot">
+            Click a link to schedule or clear a failure.<br />Every change runs
+            the MoonBit engine again.
+          </p>
+        </aside>
+        <div class="lab">
+          <section class="topology panel">
+            <div class="section-label">
+              <span>02 / LIVE TOPOLOGY</span
+              ><span id="route-label">SOURCE → DESTINATION</span>
+            </div>
+            <div class="canvas-head">
+              <div>
+                <h2 id="network-title">Six nodes. More than one way.</h2>
+                <p>Packet positions reflect the simulation clock.</p>
+              </div>
+              <span id="clock-chip" class="clock">000 <small>ms</small></span>
+            </div>
+            <svg
+              id="network"
+              viewBox="0 0 800 310"
+              role="img"
+              aria-label="Interactive six-node packet network"
+            >
+              <defs>
+                <filter id="glow"><feGaussianBlur stdDeviation="3" /></filter>
+              </defs>
+              <g id="links"></g>
+              <g id="nodes"></g>
+              <g id="packets"></g>
+            </svg>
+            <div class="legend">
+              <span><i class="legend-dot blue"></i> In transit</span
+              ><span><i class="legend-dot gold"></i> Waiting</span
+              ><span><i class="legend-line red"></i> Failed link</span
+              ><span class="legend-end">MODEL TIME · NOT REAL TRAFFIC</span>
+            </div>
+            <div class="transport">
+              <button id="play" class="play" aria-label="Play simulation">
+                ▶</button
+              ><button
+                id="restart"
+                class="restart"
+                aria-label="Restart simulation"
+              >
+                ↺</button
+              ><input
+                id="scrub"
+                type="range"
+                min="0"
+                max="154"
+                value="0"
+                step="0.1"
+                aria-label="Simulation time"
+              /><span id="duration">154 ms</span
+              ><select id="speed" aria-label="Playback speed">
+                <option value="8">0.5×</option>
+                <option value="16" selected>1×</option>
+                <option value="32">2×</option>
+              </select>
+            </div>
+          </section>
+          <section
+            class="metrics"
+            aria-label="Completed experiment results"
+            title="Full-run outcomes, independent of the current playhead"
+          >
+            <div>
+              <span>DELIVERED</span
+              ><strong id="delivered">—<small>/ 12</small></strong>
+              <p id="delivered-comparison">Baseline —</p>
+            </div>
+            <div>
+              <span>DROPPED</span><strong id="dropped">—</strong>
+              <p id="loss-reason">Computing the evidence</p>
+            </div>
+            <div>
+              <span>P95 LATENCY</span
+              ><strong id="latency">—<small>ms</small></strong>
+              <p id="latency-comparison">Delivered packets only</p>
+            </div>
+            <div>
+              <span>PEAK QUEUE</span
+              ><strong id="queue">—<small>packets</small></strong>
+              <p>Includes packet in service</p>
+            </div>
+          </section>
+          <section class="sensitivity panel">
+            <div class="section-label">
+              <span>FAILURE TIMING / COUNTERFACTUALS</span
+              ><span><span id="sweep-mode">25 EXACT MOONBIT RUNS</span></span>
+            </div>
+            <h2>Sometimes earlier is better.</h2>
+            <p id="sweep-copy">
+              Move all scheduled failures together. Each bar is a fresh
+              simulation.
+            </p>
+            <div id="sweep" class="sweep"></div>
+            <div id="sweep-axis" class="sweep-axis"></div>
+            <div class="cut-summary">
+              <span id="cut-summary"></span
+              ><button id="try-cut">Try first minimal cut ↗</button>
+            </div>
+          </section>
+          <section class="timeline panel">
+            <div class="section-label">
+              <span>03 / PACKET LIVES</span><span>SELECT A ROW TO INSPECT</span>
+            </div>
+            <div class="timeline-key">
+              <h2>Every packet has a story.</h2>
+              <div>
+                <span><i class="legend-dot blue"></i> Transit</span
+                ><span><i class="legend-dot gold"></i> Queue</span
+                ><span><i class="legend-dot red"></i> Lost</span>
+              </div>
+            </div>
+            <div id="timeline"></div>
+          </section>
+        </div>
+        <aside class="inspector panel">
+          <div class="section-label">
+            <span>04 / THE EVIDENCE</span><span>↙</span>
+          </div>
+          <div class="packet-heading">
+            <span class="packet-icon">⠿</span>
+            <div>
+              <small>SELECTED PACKET</small>
+              <h2 id="selected-id">P03</h2>
+            </div>
+            <span id="selected-status" class="packet-status">Link failed</span>
+          </div>
+          <p id="packet-summary" class="packet-summary"></p>
+          <div id="packet-path" class="packet-path"></div>
+          <div id="event-list" class="event-list"></div>
+          <div class="insight">
+            <span class="mini-label">WHAT CHANGED?</span>
+            <p id="insight"></p>
+          </div>
+          <button id="follow" class="follow">
+            Jump to this packet's outcome ↗
+          </button>
+          <p class="inspector-foot">
+            All events come from the MoonBit engine.<br />No inferred
+            explanation or generated trace.
+          </p>
+        </aside>
+      </section>
+      <section id="method" class="method panel">
+        <div>
+          <span class="eyebrow">OPEN THE BLACK BOX</span>
+          <h2>A small model.<br />Explicit assumptions.</h2>
+          <p>
+            Useful for learning and reasoning about failure.<br />Not a
+            prediction of a production network.
+          </p>
+        </div>
+        <div class="method-grid">
+          <article>
+            <b>01</b>
+            <h3>Shortest available path</h3>
+            <p>
+              Dijkstra routing runs at every node. Edge cost is serialization
+              plus propagation; current queue length does not influence route
+              selection.
+            </p>
+          </article>
+          <article>
+            <b>02</b>
+            <h3>Finite, separate queues</h3>
+            <p>
+              Each link direction has a FIFO transmitter. Capacity includes the
+              packet in service. Tail-drop rejects a packet when that queue is
+              full.
+            </p>
+          </article>
+          <article>
+            <b>03</b>
+            <h3>Failure has a precise edge</h3>
+            <p>
+              Links fail permanently at their scheduled time. Waiting and
+              in-flight packets are lost. Failure at the exact arrival time
+              wins. Routing changes instantly.
+            </p>
+          </article>
+          <article>
+            <b>04</b>
+            <h3>Reproduce every result</h3>
+            <p>
+              No randomness, network calls or wall clock in the engine. Export
+              the topology, parameters and complete trace. Reimport to run it
+              again.
+            </p>
+          </article>
+        </div>
+      </section>
+      <footer>
+        <span class="brand small"><span class="mark">╱╲</span> faultline</span
+        ><span>ORIGINAL MOONBIT ENGINE → WEBASSEMBLY · MIT LICENSE</span
+        ><span>BUILT FOR CURIOSITY, NOT CERTIFICATION.</span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -106,12 +106,12 @@ test "hop limit terminates a route without inventing delivery" {
 
 ///|
 test "invalid bounds fail before allocating or indexing" {
-  assert_true(simulate(0, [], 1, 0, 1, 0, 1).is_none())
-  assert_true(simulate(3, [], 129, 0, 2, 0, 1).is_none())
-  assert_true(simulate(3, [edge(0, 8, 1, 1, 1, -1)], 1, 0, 2, 0, 1).is_none())
-  assert_true(simulate(3, [edge(0, 2, 1, 0, 1, -1)], 1, 0, 2, 0, 1).is_none())
-  assert_true(simulate(3, [edge(0, 2, 1, 1, 0, -1)], 1, 0, 2, 0, 1).is_none())
-  assert_true(simulate(3, [], 1, 0, 2, -1, 1).is_none())
+  assert_true(simulate(0, [], 1, 0, 1, 0, 1) is None)
+  assert_true(simulate(3, [], 129, 0, 2, 0, 1) is None)
+  assert_true(simulate(3, [edge(0, 8, 1, 1, 1, -1)], 1, 0, 2, 0, 1) is None)
+  assert_true(simulate(3, [edge(0, 2, 1, 0, 1, -1)], 1, 0, 2, 0, 1) is None)
+  assert_true(simulate(3, [edge(0, 2, 1, 1, 0, -1)], 1, 0, 2, 0, 1) is None)
+  assert_true(simulate(3, [], 1, 0, 2, -1, 1) is None)
 }
 
 ///|
